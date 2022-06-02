@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react';
 import Error from './Error'
-const Formulario=({pacientes,setPacientes,paciente})=>{
+const Formulario=({pacientes,setPacientes,paciente,setPaciente})=>{
 
     const [nombre,setNombre]= useState('');
     const [email,setEmail]= useState('');
@@ -10,7 +10,11 @@ const Formulario=({pacientes,setPacientes,paciente})=>{
     const [error, setError] = useState(false);
 
     useEffect(()=>{
-
+        console.log(Object.keys(paciente).length > 0)
+        setNombre(paciente.nombre)
+        setEmail(paciente.email)
+        setFecha(paciente.fecha)
+        setSintomas(paciente.sintomas)
     },[paciente])
 
 
@@ -39,13 +43,26 @@ const Formulario=({pacientes,setPacientes,paciente})=>{
             nombre,
             email,
             fecha,
-            sintomas,
-            id: generarId()
+            sintomas
+        }
+
+        if (paciente.id) {
+            //Editando registro
+            objetoPaciente.id = paciente.id
+         
+
+            const pacientesActualizados = pacientes.map(pacienteState => pacienteState.id === paciente.id ? objetoPaciente : pacienteState)
+
+            setPacientes(pacientesActualizados)
+        }else{
+            //nuevo registro
+            objetoPaciente.id = generarId();
+            setPacientes([...pacientes,objetoPaciente]);
         }
 
         console.log(objetoPaciente);
         
-        setPacientes([...pacientes,objetoPaciente]);
+        
 
         //reiniciar el formulario
         setNombre('')
@@ -131,7 +148,7 @@ const Formulario=({pacientes,setPacientes,paciente})=>{
                 type="submit"
                 className="bg-indigo-600 w-full p-3 text-white uppercase font-bold
                 hover:bg-indigo-800 cursor-pointer rounded-md"
-                value="Agregar Paciente"
+                value={paciente.id ? 'Editar Paciente' : 'Agregar Paciente'}
             />
         </form>
 
