@@ -7,6 +7,9 @@ const App=()=> {
 
   const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({})
+  
+  const [Correo, setCorre] = useState('');
+  const [direccion, setDireccion] = useState('');
 
   //los useEffect se van ejecutando en el orden que son declarados
   useEffect(()=>{
