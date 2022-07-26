@@ -8,6 +8,7 @@ const App=()=> {
   const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({})
   
+  //agregando estos comentario a ver si se ven reflejados
   const [Correo, setCorre] = useState('');
   const [direccion, setDireccion] = useState('');
 
